@@ -1,0 +1,4 @@
+telethon
+google-api-python-client
+googletrans
+firebase-admin
