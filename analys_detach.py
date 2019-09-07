@@ -264,7 +264,7 @@ def normal_question(question, answer):
                     continue
                 else:
                     dem1 += 0.1
-        if dem1 < 1:
+        if dem1 < 4:
             print('vào----------------------------------')
             keysearch_en = translate_api(question)
             question_en = translate_api(question)
@@ -298,13 +298,15 @@ def normal_question(question, answer):
         global dem
         dem = 0
         key_replace = untils.get_key_replace_question_common(question)
-        # print('====key replace:', key_replace)
+        print('====key replace:', key_replace)
         if key_replace != '':
+            # key_search = question.lower().replace(key_replace.lower(), answer).strip()
             key_search = question.replace(key_replace, answer).strip()
+            print('00000000000',key_search,answer)
         else:
             key_search = question + ' ' + answer
         result_search = rate_answer(key_search)
-        print('+++++++++++++', key_search)
+        print('+++++++++++++-------', key_search)
         for i in result_search:
             if (untils.check_appear_detach(answer, i['title']) or untils.check_appear_detach(answer, i['snippet'])):
                 if untils.check_appear_5(question, i['title']) or untils.check_appear_5(question, i['snippet']):
@@ -325,7 +327,7 @@ def normal_question(question, answer):
                     continue
                 else:
                     dem += 0.1
-        if dem < 1:
+        if dem < 4:
             key_search_en = translate_api(key_search)
             answer_en = translate_api(answer)
             # print('---answer_en', answer_en)
