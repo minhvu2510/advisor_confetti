@@ -27,7 +27,7 @@ def rate_answer(keyword):
         list_result = []
     return list_result
 def translate_api(string_origin):
-    translations = translator.translate(string_origin,dest='en')
+    translations = translator.translate(string_origin,src='vi',dest='en')
     # print('--origin--',string_origin)
     # print('--translate--',translations)
     return translations.text
@@ -41,7 +41,7 @@ def negative_question(question, answer):
         key_search = question.replace(key_replace, answer).strip()
     else:
         key_search = question + ' ' +answer
-    print('+++++',key_search)
+    # print('+++++',key_search)
     result_search = rate_answer(key_search)
     global dem
     dem = 0
@@ -53,17 +53,17 @@ def negative_question(question, answer):
             if untils.check_appear_4(question, i['title']) or untils.check_appear_4(question, i['snippet']):
                 dem += 4
                 continue
-            if untils.check_appear_2_upper(question, i['title']) or untils.check_appear_2_upper(question, i['snippet']):
-                print(i['title'], i['snippet'])
-                dem += 2
-                continue
             if untils.check_appear_3(question, i['title']) or untils.check_appear_3(question, i['snippet']):
                 # print(i['title'], i['snippet'])
                 dem += 1
+                # continue
+            if untils.check_appear_2_upper(question, i['title']) or untils.check_appear_2_upper(question, i['snippet']):
+                # print(i['title'], i['snippet'])
+                dem += 2
                 continue
-            else:
-                dem += 0.1
-    if dem < 1:
+            # else:
+            dem += 0.1
+    if dem < 4:
         key_search_en = translate_api(key_search)
         # print('+++', key_search_en)
         result_search_en = rate_answer(key_search_en)
@@ -80,13 +80,12 @@ def negative_question(question, answer):
                     continue
                 if untils.check_appear_3(quets_en, i['title']) or untils.check_appear_3(quets_en, i['snippet']):
                     dem += 1
-                    continue
+                    # continue
                 if untils.check_appear_2_upper(quets_en, i['title']) or untils.check_appear_2_upper(quets_en,
                                                                                                     i['snippet']):
                     dem += 3
                     continue
-                else:
-                    dem += 0.1
+                dem += 0.1
     # print('-----------------', dem)
     re = {answer: dem}
     return re
@@ -96,6 +95,7 @@ def quotation_mark(question, answer):
     global dem
     global dem1
     dem = 0
+    # print(question)
     def count_no_answer(keysearch):
         global dem1
         dem1 = 0
@@ -103,6 +103,7 @@ def quotation_mark(question, answer):
         # print('-----', keysearch)
         for i in result_search:
             if (untils.check_all_appear(answer, i['title']) or untils.check_all_appear(answer, i['snippet'])):
+                # print(i['snippet'])
                 if untils.check_appear_5(question, i['title']) or untils.check_appear_5(question, i['snippet']):
                     dem1 += 10
                     continue
@@ -111,21 +112,25 @@ def quotation_mark(question, answer):
                     continue
                 if untils.check_appear_3(question, i['title']) or untils.check_appear_3(question, i['snippet']):
                     dem1 += 1
-                    continue
+                    # continue
                 if untils.check_appear_2_upper(question, i['title']) or untils.check_appear_2_upper(question,
                                                                                                     i['snippet']):
                     dem1 += 3
                     continue
-                else:
-                    dem1 += 0.1
-        if dem1 < 1:
+                if untils.check_appear_2_upper('Lỗ Tấn', i['title']) or untils.check_appear_2_upper('Lỗ Tấn',
+                                                                                                    i[
+                                                                                                        'snippet']):
+                    dem1 += 4
+                dem1 += 0.1
+        if dem1 < 4:
             keysearch_en = translate_api(keysearch)
             question_en = translate_api(question)
             answer_en = translate_api(answer)
-            # print('---answer_en',answer_en)
+            # print('---answer_en',keysearch_en)
             result_search_en = rate_answer(keysearch_en)
             for i in result_search_en:
                 if (untils.check_all_appear(answer_en, i['title']) or untils.check_all_appear(answer_en, i['snippet'])):
+                    # print (i['snippet'])
                     if untils.check_appear_5(question_en, i['title']) or untils.check_appear_5(question_en, i['snippet']):
                         dem1 += 10
                         continue
@@ -134,13 +139,13 @@ def quotation_mark(question, answer):
                         continue
                     if untils.check_appear_3(question_en, i['title']) or untils.check_appear_3(question_en, i['snippet']):
                         dem1 += 1
-                        continue
+                        # continue
                     if untils.check_appear_2_upper(question_en, i['title']) or untils.check_appear_2_upper(question_en,
                                                                                                         i['snippet']):
+
                         dem1 += 3
                         continue
-                    else:
-                        dem1 += 0.1
+                    dem1 += 0.1
     def count_has_answer(keysearch):
         global dem
         dem = 0
@@ -151,9 +156,12 @@ def quotation_mark(question, answer):
         else:
             key_search = keysearch + ' ' + answer
         result_search = rate_answer(key_search)
-        # print('+++++++++++++', key_search)
+        # print('+++++++++++++1111111111111111111', key_search)
         for i in result_search:
             if (untils.check_all_appear(answer, i['title']) or untils.check_all_appear(answer, i['snippet'])):
+                # print(i['title'])
+                # print(i['snippet'])
+                # print('-------------------------------------------------------------------------')
                 if untils.check_appear_5(question, i['title']) or untils.check_appear_5(question, i['snippet']):
                     dem += 10
                     continue
@@ -162,15 +170,21 @@ def quotation_mark(question, answer):
                     dem += 4
                     continue
                 if untils.check_appear_3(question, i['title']) or untils.check_appear_3(question, i['snippet']):
+                    # print (i['snippet'])
+                    # print('--',question)
                     dem += 1
-                    continue
+                    # continue
                 if untils.check_appear_2_upper(question, i['title']) or untils.check_appear_2_upper(question,
                                                                                                     i['snippet']):
+                    # print('00000',i['snippet'])
                     dem += 3
                     continue
-                else:
-                    dem += 0.1
-        if dem < 1:
+                # if untils.check_appear_2_upper('Lỗ Tấn ', i['title']) or untils.check_appear_2_upper('Lỗ Tấn',
+                #                                                                                     i[
+                #                                                                                         'snippet']):
+                #     dem += 4
+                dem += 0.1
+        if dem < 4:
             key_search_en = translate_api(key_search)
             answer_en = translate_api(answer)
             # print('---answer_en', answer_en)
@@ -189,7 +203,7 @@ def quotation_mark(question, answer):
                     if untils.check_appear_3(question_en, i['title']) or untils.check_appear_3(question_en,
                                                                                                i['snippet']):
                         dem += 1
-                        continue
+                        # continue
                     if untils.check_appear_2_upper(question_en, i['title']) or untils.check_appear_2_upper(question_en,
                                                                                                            i[
                                                                                                                'snippet']):
@@ -197,8 +211,7 @@ def quotation_mark(question, answer):
                         # print(question_en)
                         # print(i['snippet'])
                         continue
-                    else:
-                        dem += 0.1
+                    dem += 0.1
 
     if question.count('"') == 2:
         word_detach = question.split('"')
@@ -246,9 +259,10 @@ def normal_question(question, answer):
         global dem1
         dem1 = 0
         result_search = rate_answer(question)
-        # print('-----', keysearch)
+        # print('-----', question)
         for i in result_search:
             if (untils.check_all_appear(answer, i['title']) or untils.check_all_appear(answer, i['snippet'])):
+                # print ('-===========-----------============')
                 if untils.check_appear_5(question, i['title']) or untils.check_appear_5(question, i['snippet']):
                     dem1 += 10
                     continue
@@ -257,18 +271,18 @@ def normal_question(question, answer):
                     continue
                 if untils.check_appear_3(question, i['title']) or untils.check_appear_3(question, i['snippet']):
                     dem1 += 1
-                    continue
+                    # continue
                 if untils.check_appear_2_upper(question, i['title']) or untils.check_appear_2_upper(question,
                                                                                                     i['snippet']):
                     dem1 += 3
                     continue
-                else:
-                    dem1 += 0.1
-        if dem1 < 1:
+                dem1 += 0.1
+        if dem1 < 4:
             keysearch_en = translate_api(question)
             question_en = translate_api(question)
             answer_en = translate_api(answer)
-            # print('---answer_en',answer_en)
+            # print('---answer_en',keysearch_en)
+            # print('---answer_en',answer_en, answer)
             result_search_en = rate_answer(keysearch_en)
             for i in result_search_en:
                 if (untils.check_all_appear(answer_en, i['title']) or untils.check_all_appear(answer_en, i['snippet'])):
@@ -283,14 +297,13 @@ def normal_question(question, answer):
                     if untils.check_appear_3(question_en, i['title']) or untils.check_appear_3(question_en,
                                                                                                i['snippet']):
                         dem1 += 1
-                        continue
+                        # continue
                     if untils.check_appear_2_upper(question_en, i['title']) or untils.check_appear_2_upper(question_en,
                                                                                                            i[
                                                                                                                'snippet']):
                         dem1 += 3
                         continue
-                    else:
-                        dem1 += 0.1
+                    dem1 += 0.1
 
     def count_has_answer():
         global dem
@@ -301,25 +314,26 @@ def normal_question(question, answer):
             key_search = question.replace(key_replace, answer).strip()
         else:
             key_search = question + ' ' + answer
-        print('----',key_search)
+        # print('----',key_search)
         result_search = rate_answer(key_search)
         # print('+++++++++++++', key_search)
         for i in result_search:
             if (untils.check_all_appear(answer, i['title']) or untils.check_all_appear(answer, i['snippet'])):
+                # print(i['snippet'])
                 if untils.check_appear_8(key_search, i['title']) or untils.check_appear_8(key_search, i['snippet']):
-                    print('11111111111', i['snippet'])
+                    # print('11111111111', i['snippet'])
                     dem += 70
                     continue
                 if untils.check_appear_7(key_search, i['title']) or untils.check_appear_7(key_search, i['snippet']):
-                    print('=======', i['snippet'])
+                    # print('=======', i['snippet'])
                     dem += 30
                     continue
                 if untils.check_appear_6(question, i['title']) or untils.check_appear_6(question, i['snippet']):
-                    print('++++', i['snippet'])
+                    # print('++++', i['snippet'])
                     dem += 15
                     continue
                 if untils.check_appear_5(question, i['title']) or untils.check_appear_5(question, i['snippet']):
-                    print ('---',i['snippet'])
+                    # print ('---',i['snippet'])
                     dem += 10
                     continue
                 if untils.check_appear_4(question, i['title']) or untils.check_appear_4(question, i['snippet']):
@@ -330,14 +344,15 @@ def normal_question(question, answer):
                     continue
                 if untils.check_appear_3(question, i['title']) or untils.check_appear_3(question, i['snippet']):
                     dem += 1
-                    continue
+                    # continue
                 if untils.check_appear_2_upper(question, i['title']) or untils.check_appear_2_upper(question,
                                                                                                     i['snippet']):
+                    # print('0000000000000000000000000000000000000')
                     dem += 3
                     continue
-                else:
-                    dem += 0.1
-        if dem < 1:
+
+                dem += 0.1
+        if dem < 4:
             key_search_en = translate_api(key_search)
             answer_en = translate_api(answer)
             # print('---answer_en', answer_en)
@@ -356,7 +371,7 @@ def normal_question(question, answer):
                     if untils.check_appear_3(question_en, i['title']) or untils.check_appear_3(question_en,
                                                                                                i['snippet']):
                         dem += 1
-                        continue
+                        # continue
                     if untils.check_appear_2_upper(question_en, i['title']) or untils.check_appear_2_upper(question_en,
                                                                                                            i[
                                                                                                                'snippet']):
@@ -364,8 +379,8 @@ def normal_question(question, answer):
                         # print(question_en)
                         # print(i['snippet'])
                         continue
-                    else:
-                        dem += 0.1
+
+                    dem += 0.1
 
     x = threading.Thread(target=count_no_answer)
     y = threading.Thread(target=count_has_answer)
@@ -392,15 +407,15 @@ def normal_question(question, answer):
     # return re
 
 if __name__ == '__main__':
-    # quotation_mark('Vở cải lương "Tiếng trống Mê Linh" được công diễn lần đầu tiên vào năm nào?',
-    #                '1976')
+    # quotation_mark('Con vật nào xuất hiện cuối tác phẩm "Thuốc" (1919) của Lỗ Tấn',
+    #                'Quạ')
     # 1: Cây bách(score: 0 - 3.5)
     # 2: Cây tùng(score: 1 - 4).....
     # 3: Cây sồi(score: 0 - 3.5)
     # negative_question('Nước nào sau đây KHÔNG thuộc múi giờ GMT 3?',
     #                   'En-Xan-va-đo')
-    normal_question('Hủ tiếu Nam Vang có nguồn gốc từ nước nào',
-                      'Cam-pu-chia')
+    normal_question('Danh tướng Hannibal Barca đã cưỡi con vật gì sau đây khi băng qua dãy An-pơ',
+                      'Voi')
     # question_how('Quốc gia nào sau đây nghiêm cấm du khách mang giày cao gót khi đến thăm những khu di tích cổ?','Hy Lạp')
     # question_how('Theo Telegraph, cầu thủ bóng đá nào sau đây có đai đen Taekwondo?',
     #              'Zlatan Ibrahimovic')

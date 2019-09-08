@@ -1,3 +1,5 @@
+from _socket import gaierror
+
 from settings import *
 
 def check_answer_notdetach(string):
@@ -93,8 +95,6 @@ def check_appear_4(answer,string_origin):
         for i in range(0, len(list_words) - 3):
             graft = list_words[i] + ' ' + list_words[i + 1] + ' ' + list_words[i + 2] + ' ' + list_words[i + 3]
             if graft.lower() in string_origin:
-                # print(graft)
-                # print('(((((', graft)
                 return True
     return False
 def check_appear_3(answer,string_origin):
@@ -114,6 +114,7 @@ def check_upper(origin_string):
             return False
     return True
 def check_appear_2_upper(answer,string_origin):
+    answer = answer.replace('?',' ')
     list_words = answer.split(' ')
     if len(list_words) > 2:
         for i in range(0, len(list_words) - 1):
@@ -145,13 +146,11 @@ def check_appear_detach(answer,string_origin):
             for i in range(0, len(list_words) - 2):
                 graft = list_words[i] + ' ' + list_words[i + 1] + ' ' + list_words[i + 2]
                 if graft.lower() in string_origin:
-                    # print(string_origin)
                     return True
         if len(list_words) > 2:
             for i in range(0, len(list_words) - 1):
                 graft = list_words[i] + ' ' + list_words[i + 1]
                 if graft.lower() in string_origin:
-                    # print(string_origin)
                     return True
     else:
         if len(list_words) == 1:
