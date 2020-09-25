@@ -10,12 +10,8 @@ translator = Translator()
 
 # QUESTION = Redis(host=settings.REDIS_MASTER, port=int(6379), db=7)
 def rate_answer(keyword):
-    # my_api_key = 'AIzaSyBQGUQjol8SGcU45E8AoVC1ml2ssmjgiqc'
-    # my_cse_id = "007634521947617393818:q2nm52o-9fs"
-    # my_cse_id = "007634521947617393818:q2nm52o-9fs"
-    #
-    my_api_key = 'AIzaSyBLjpmGnVgk17r8UezfiSBDBInQgX8kNMY'
-    my_cse_id = "012292668574518592803:v0yhz0lyrhi"
+    my_api_key = 'AIzaSyBLjpmGnVgk17r8UezfiSBDBIndathaydoi'
+    my_cse_id = "012292668574518592803:v0yhdathaydoi"
     def google_search(search_term, api_key, cse_id, **kwargs):
         service = build("customsearch", "v1", developerKey=api_key)
         res = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
@@ -379,13 +375,6 @@ def normal_question(question, answer):
     # return re
 
 if __name__ == '__main__':
-    # quotation_mark('Vở cải lương "Tiếng trống Mê Linh" được công diễn lần đầu tiên vào năm nào?',
-    #                '1976')
-    # 1: Cây bách(score: 0 - 3.5)
-    # 2: Cây tùng(score: 1 - 4).....
-    # 3: Cây sồi(score: 0 - 3.5)
-    # negative_question('Nước nào sau đây KHÔNG thuộc múi giờ GMT 3?',
-    #                   'En-Xan-va-đo')
     normal_question('Con của con trâu được gọi là gì',
                       ' Con nghé')
     # question_how('Quốc gia nào sau đây nghiêm cấm du khách mang giày cao gót khi đến thăm những khu di tích cổ?','Hy Lạp')

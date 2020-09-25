@@ -16,8 +16,8 @@ import settings
 
 #account MinhDuy
 api_id = '1010743'
-api_hash = '7b61317eb3da2d67a70bddca7c89bb82'
-group_username = 'vudeptrai'
+api_hash = '7b61317eb3da2d67a70bddca7cdathay'
+group_username = 'mv'
 import timeit
 import untils
 client = TelegramClient('anon3', api_id, api_hash).start()

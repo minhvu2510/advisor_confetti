@@ -78,29 +78,6 @@ def get_resutl(quest,ans_a,ans_b,ans_c,ans_or):
     # ---------------------------
     x.join()
     y.join()
-    # z.join()
-    # o.join()
-    # quest_a = ans_a
-    # quest_b = ans_b
-    # quest_c = ans_c
-    # k1 = [{'key': ans_a, 'value': rate_a[ans_a]},
-    #      {'key': ans_b, 'value': rate_b[ans_b]},
-    #      {'key': ans_c, 'value': rate_c[ans_c]}]
-    # # k2 = [rate_a[ans_a],rate_b[ans_b],rate_c[ans_c]]
-    # k = max(rate_a[ans_a],rate_b[ans_b],rate_c[ans_c])
-    # if (rate_a[ans_a] == k):
-    #     print('----', rate_a)
-    # if (rate_b[ans_b] == k):
-    #     print('----', rate_b)
-    # if (rate_c[ans_c] == k):
-    #     print('----', rate_c)
-    # maxPricedItem = max(k1, key=lambda x: x['value'])
-    # max = max(map(itemgetter('value'), k1))
-    # k = [rate_a, rate_b, rate_c]
-    # ref.set({'quest': quest, 'ans_a': ans_a,'count_a': rate_a[ans_a],
-    #          'ans_b': ans_b,'count_b': rate_b[ans_b],
-    #          'ans_c': ans_c,'count_c': rate_c[ans_c],
-    #          'tele': ans_or})
     if 'KHÔNG' in quest:
         print('-----------------------------KHÔNG-------------------------------')
     # print('----', rate_a)

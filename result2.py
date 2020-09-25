@@ -5,15 +5,6 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 from operator import itemgetter
-# Fetch the service account key JSON file contents
-# cred = credentials.Certificate('mv.json')
-# # Initialize the app with a service account, granting admin privileges
-# firebase_admin.initialize_app(cred, {
-#     'databaseURL': 'https://confetti-be3fc.firebaseio.com/'
-#  })
-# ref = db.reference('/minhvu')
-# ref.set({ 'quest': '','ans_': 1,'ans_b': 0,'ans_c': 0,'tele': '3777777'})
-
 rate_a = {}
 rate_b = {}
 rate_c = {}
@@ -62,15 +53,6 @@ def get_resutl(quest,ans_a,ans_b,ans_c,ans_or):
     print('----', rate_b)
     print('----', rate_c)
     print('----', ans_or)
-    # if rate_a[ans_a] == 0:
-    #     a1 =threading.Thread(target=get_rate_a1())
-    #     a1.start()
-    # if rate_b[ans_b] == 0:
-    #     b1 = threading.Thread(target=get_rate_b1())
-    #     b1.start()
-    # if rate_c[ans_c] == 0:
-    #     c1 = threading.Thread(target=get_rate_c1())
-    #     c1.start()
     x.start()
     y.start()
     z.start()
@@ -78,29 +60,6 @@ def get_resutl(quest,ans_a,ans_b,ans_c,ans_or):
     # ---------------------------
     x.join()
     y.join()
-    # z.join()
-    # o.join()
-    # quest_a = ans_a
-    # quest_b = ans_b
-    # quest_c = ans_c
-    # k1 = [{'key': ans_a, 'value': rate_a[ans_a]},
-    #      {'key': ans_b, 'value': rate_b[ans_b]},
-    #      {'key': ans_c, 'value': rate_c[ans_c]}]
-    # # k2 = [rate_a[ans_a],rate_b[ans_b],rate_c[ans_c]]
-    # k = max(rate_a[ans_a],rate_b[ans_b],rate_c[ans_c])
-    # if (rate_a[ans_a] == k):
-    #     print('----', rate_a)
-    # if (rate_b[ans_b] == k):
-    #     print('----', rate_b)
-    # if (rate_c[ans_c] == k):
-    #     print('----', rate_c)
-    # maxPricedItem = max(k1, key=lambda x: x['value'])
-    # max = max(map(itemgetter('value'), k1))
-    # k = [rate_a, rate_b, rate_c]
-    # ref.set({'quest': quest, 'ans_a': ans_a,'count_a': rate_a[ans_a],
-    #          'ans_b': ans_b,'count_b': rate_b[ans_b],
-    #          'ans_c': ans_c,'count_c': rate_c[ans_c],
-    #          'tele': ans_or})
     if 'KHÔNG' in quest:
         print('-----------------------------KHÔNG-------------------------------')
     # print('----', rate_a)
